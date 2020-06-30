@@ -32,11 +32,11 @@ import java.util.concurrent.TimeUnit
  *
  * @param acceptBacklog  Set the accept back log.
  * @param clientAuth  Set whether client auth is required
+ * @param clusterNodeMetadata  Set information about this node when Vert.x is clustered. <p> The data may be used by the [io.vertx.core.spi.cluster.NodeSelector] to select a node for a given message. For example, it could be used to implement a partioning strategy. <p> The default [io.vertx.core.spi.cluster.NodeSelector] does not use the node metadata.
  * @param clusterPingInterval  Set the value of cluster ping interval, in ms.
  * @param clusterPingReplyInterval  Set the value of cluster ping reply interval, in ms.
  * @param clusterPublicHost  Set the public facing hostname to be used for clustering. Sometimes, e.g. when running on certain clouds, the local address the server listens on for clustering is not the same address that other nodes connect to it at, as the OS / cloud infrastructure does some kind of proxying. If this is the case you can specify a public hostname which is different from the hostname the server listens at. <p> The default value is null which means use the same as the cluster hostname.
  * @param clusterPublicPort  See [io.vertx.core.eventbus.EventBusOptions] for an explanation.
- * @param clustered  Sets whether or not the event bus is clustered.
  * @param connectTimeout  Sets the connect timeout
  * @param crlPaths  Add a CRL path
  * @param crlValues  Add a CRL value
@@ -82,11 +82,11 @@ import java.util.concurrent.TimeUnit
 fun eventBusOptionsOf(
   acceptBacklog: Int? = null,
   clientAuth: ClientAuth? = null,
+  clusterNodeMetadata: io.vertx.core.json.JsonObject? = null,
   clusterPingInterval: Long? = null,
   clusterPingReplyInterval: Long? = null,
   clusterPublicHost: String? = null,
   clusterPublicPort: Int? = null,
-  clustered: Boolean? = null,
   connectTimeout: Int? = null,
   crlPaths: Iterable<String>? = null,
   crlValues: Iterable<io.vertx.core.buffer.Buffer>? = null,
@@ -132,6 +132,9 @@ fun eventBusOptionsOf(
   if (clientAuth != null) {
     this.setClientAuth(clientAuth)
   }
+  if (clusterNodeMetadata != null) {
+    this.setClusterNodeMetadata(clusterNodeMetadata)
+  }
   if (clusterPingInterval != null) {
     this.setClusterPingInterval(clusterPingInterval)
   }
@@ -143,9 +146,6 @@ fun eventBusOptionsOf(
   }
   if (clusterPublicPort != null) {
     this.setClusterPublicPort(clusterPublicPort)
-  }
-  if (clustered != null) {
-    this.setClustered(clustered)
   }
   if (connectTimeout != null) {
     this.setConnectTimeout(connectTimeout)
@@ -276,11 +276,11 @@ fun eventBusOptionsOf(
  *
  * @param acceptBacklog  Set the accept back log.
  * @param clientAuth  Set whether client auth is required
+ * @param clusterNodeMetadata  Set information about this node when Vert.x is clustered. <p> The data may be used by the [io.vertx.core.spi.cluster.NodeSelector] to select a node for a given message. For example, it could be used to implement a partioning strategy. <p> The default [io.vertx.core.spi.cluster.NodeSelector] does not use the node metadata.
  * @param clusterPingInterval  Set the value of cluster ping interval, in ms.
  * @param clusterPingReplyInterval  Set the value of cluster ping reply interval, in ms.
  * @param clusterPublicHost  Set the public facing hostname to be used for clustering. Sometimes, e.g. when running on certain clouds, the local address the server listens on for clustering is not the same address that other nodes connect to it at, as the OS / cloud infrastructure does some kind of proxying. If this is the case you can specify a public hostname which is different from the hostname the server listens at. <p> The default value is null which means use the same as the cluster hostname.
  * @param clusterPublicPort  See [io.vertx.core.eventbus.EventBusOptions] for an explanation.
- * @param clustered  Sets whether or not the event bus is clustered.
  * @param connectTimeout  Sets the connect timeout
  * @param crlPaths  Add a CRL path
  * @param crlValues  Add a CRL value
@@ -325,16 +325,16 @@ fun eventBusOptionsOf(
  */
 @Deprecated(
   message = "This function will be removed in a future version",
-  replaceWith = ReplaceWith("eventBusOptionsOf(acceptBacklog, clientAuth, clusterPingInterval, clusterPingReplyInterval, clusterPublicHost, clusterPublicPort, clustered, connectTimeout, crlPaths, crlValues, enabledCipherSuites, enabledSecureTransportProtocols, host, idleTimeout, idleTimeoutUnit, jdkSslEngineOptions, keyStoreOptions, logActivity, openSslEngineOptions, pemKeyCertOptions, pemTrustOptions, pfxKeyCertOptions, pfxTrustOptions, port, receiveBufferSize, reconnectAttempts, reconnectInterval, reuseAddress, reusePort, sendBufferSize, soLinger, ssl, sslEngineOptions, sslHandshakeTimeout, sslHandshakeTimeoutUnit, tcpCork, tcpFastOpen, tcpKeepAlive, tcpNoDelay, tcpQuickAck, trafficClass, trustAll, trustOptions, trustStoreOptions, useAlpn)")
+  replaceWith = ReplaceWith("eventBusOptionsOf(acceptBacklog, clientAuth, clusterNodeMetadata, clusterPingInterval, clusterPingReplyInterval, clusterPublicHost, clusterPublicPort, connectTimeout, crlPaths, crlValues, enabledCipherSuites, enabledSecureTransportProtocols, host, idleTimeout, idleTimeoutUnit, jdkSslEngineOptions, keyStoreOptions, logActivity, openSslEngineOptions, pemKeyCertOptions, pemTrustOptions, pfxKeyCertOptions, pfxTrustOptions, port, receiveBufferSize, reconnectAttempts, reconnectInterval, reuseAddress, reusePort, sendBufferSize, soLinger, ssl, sslEngineOptions, sslHandshakeTimeout, sslHandshakeTimeoutUnit, tcpCork, tcpFastOpen, tcpKeepAlive, tcpNoDelay, tcpQuickAck, trafficClass, trustAll, trustOptions, trustStoreOptions, useAlpn)")
 )
 fun EventBusOptions(
   acceptBacklog: Int? = null,
   clientAuth: ClientAuth? = null,
+  clusterNodeMetadata: io.vertx.core.json.JsonObject? = null,
   clusterPingInterval: Long? = null,
   clusterPingReplyInterval: Long? = null,
   clusterPublicHost: String? = null,
   clusterPublicPort: Int? = null,
-  clustered: Boolean? = null,
   connectTimeout: Int? = null,
   crlPaths: Iterable<String>? = null,
   crlValues: Iterable<io.vertx.core.buffer.Buffer>? = null,
@@ -380,6 +380,9 @@ fun EventBusOptions(
   if (clientAuth != null) {
     this.setClientAuth(clientAuth)
   }
+  if (clusterNodeMetadata != null) {
+    this.setClusterNodeMetadata(clusterNodeMetadata)
+  }
   if (clusterPingInterval != null) {
     this.setClusterPingInterval(clusterPingInterval)
   }
@@ -391,9 +394,6 @@ fun EventBusOptions(
   }
   if (clusterPublicPort != null) {
     this.setClusterPublicPort(clusterPublicPort)
-  }
-  if (clustered != null) {
-    this.setClustered(clustered)
   }
   if (connectTimeout != null) {
     this.setConnectTimeout(connectTimeout)

@@ -13,9 +13,9 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package io.vertx.kotlin.ext.jwt
+package io.vertx.kotlin.ext.auth
 
-import io.vertx.ext.jwt.JWTOptions
+import io.vertx.ext.auth.JWTOptions
 
 fun jwtOptionsOf(
   algorithm: String? = null,
@@ -30,7 +30,7 @@ fun jwtOptionsOf(
   noTimestamp: Boolean? = null,
   permissions: Iterable<String>? = null,
   scopes: Iterable<String>? = null,
-  subject: String? = null): JWTOptions = io.vertx.ext.jwt.JWTOptions().apply {
+  subject: String? = null): JWTOptions = io.vertx.ext.auth.JWTOptions().apply {
 
   if (algorithm != null) {
     this.setAlgorithm(algorithm)
@@ -92,7 +92,7 @@ fun JWTOptions(
   noTimestamp: Boolean? = null,
   permissions: Iterable<String>? = null,
   scopes: Iterable<String>? = null,
-  subject: String? = null): JWTOptions = io.vertx.ext.jwt.JWTOptions().apply {
+  subject: String? = null): JWTOptions = io.vertx.ext.auth.JWTOptions().apply {
 
   if (algorithm != null) {
     this.setAlgorithm(algorithm)

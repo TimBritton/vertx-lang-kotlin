@@ -13,51 +13,57 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package io.vertx.kotlin.mqtt
+package io.vertx.kotlin.sqlclient
 
-import io.vertx.mqtt.MqttServerOptions
-import io.vertx.core.http.ClientAuth
+import io.vertx.sqlclient.SqlConnectOptions
 import io.vertx.core.net.JdkSSLEngineOptions
 import io.vertx.core.net.JksOptions
 import io.vertx.core.net.OpenSSLEngineOptions
 import io.vertx.core.net.PemKeyCertOptions
 import io.vertx.core.net.PemTrustOptions
 import io.vertx.core.net.PfxOptions
+import io.vertx.core.net.ProxyOptions
 import java.util.concurrent.TimeUnit
 
 /**
- * A function providing a DSL for building [io.vertx.mqtt.MqttServerOptions] objects.
+ * A function providing a DSL for building [io.vertx.sqlclient.SqlConnectOptions] objects.
  *
- * Represents options used by the MQTT server
+ * Connect options for configuring [io.vertx.sqlclient.SqlConnection] or [io.vertx.sqlclient.Pool].
  *
- * @param acceptBacklog  Set the accept back log
- * @param autoClientId  Set if clientid should be auto-generated when it's "zero-bytes"
- * @param clientAuth  Set whether client auth is required
+ * @param cachePreparedStatements  Set whether prepared statements cache should be enabled.
+ * @param connectTimeout  Set the connect timeout
  * @param crlPaths  Add a CRL path
  * @param crlValues  Add a CRL value
+ * @param database  Specify the default database for the connection.
  * @param enabledCipherSuites  Add an enabled cipher suite, appended to the ordered suites.
  * @param enabledSecureTransportProtocols  Sets the list of enabled SSL/TLS protocols.
- * @param host  Set the host
- * @param idleTimeout  Set the idle timeout, default time unit is seconds. Zero means don't timeout. This determines if a connection will timeout and be closed if no data is received within the timeout. If you want change default time unit, use [io.vertx.core.net.NetServerOptions]
+ * @param host  Specify the host for connecting to the server.
+ * @param hostnameVerificationAlgorithm  Set the hostname verification algorithm interval To disable hostname verification, set hostnameVerificationAlgorithm to an empty String
+ * @param idleTimeout  Set the idle timeout, default time unit is seconds. Zero means don't timeout. This determines if a connection will timeout and be closed if no data is received within the timeout. If you want change default time unit, use [io.vertx.core.net.NetClientOptions]
  * @param idleTimeoutUnit  Set the idle timeout unit. If not specified, default is seconds.
  * @param jdkSslEngineOptions 
  * @param keyCertOptions  Set the key/cert options.
  * @param keyStoreOptions  Set the key/cert options in jks format, aka Java keystore.
+ * @param localAddress  Set the local interface to bind for network connections. When the local address is null, it will pick any local address, the default local address is null.
  * @param logActivity  Set to true to enabled network activity logging: Netty's pipeline is configured for logging on Netty's logger.
- * @param maxMessageSize  Set max MQTT message size
+ * @param metricsName  Set the metrics name identifying the reported metrics, useful for grouping metrics with the same name.
  * @param openSslEngineOptions 
+ * @param password  Specify the user password to be used for the authentication.
  * @param pemKeyCertOptions  Set the key/cert store options in pem format.
  * @param pemTrustOptions  Set the trust options in pem format
  * @param pfxKeyCertOptions  Set the key/cert options in pfx format.
  * @param pfxTrustOptions  Set the trust options in pfx format
- * @param port  Set the port
- * @param proxyProtocolTimeout  Set the Proxy protocol timeout, default time unit is seconds.
- * @param proxyProtocolTimeoutUnit  Set the Proxy protocol timeout unit. If not specified, default is seconds.
+ * @param port  Specify the port for connecting to the server.
+ * @param preparedStatementCacheMaxSize  Set the maximum number of prepared statements that the connection will cache.
+ * @param preparedStatementCacheSqlLimit  Set the maximum length of prepared statement SQL string that the connection will cache.
+ * @param properties  Set properties for this client, which will be sent to server at the connection start.
+ * @param proxyOptions  Set proxy options for connections via CONNECT proxy (e.g. Squid) or a SOCKS proxy.
  * @param receiveBufferSize  Set the TCP receive buffer size
+ * @param reconnectAttempts  Set the value of reconnect attempts
+ * @param reconnectInterval  Set the reconnect interval
  * @param reuseAddress  Set the value of reuse address
  * @param reusePort  Set the value of reuse port. <p/> This is only supported by native transports.
  * @param sendBufferSize  Set the TCP send buffer size
- * @param sni  Set whether the server supports Server Name Indiciation
  * @param soLinger  Set whether SO_linger keep alive is enabled
  * @param ssl  Set whether SSL/TLS is enabled
  * @param sslEngineOptions  Set to use SSL engine implementation to use.
@@ -68,45 +74,51 @@ import java.util.concurrent.TimeUnit
  * @param tcpKeepAlive  Set whether TCP keep alive is enabled
  * @param tcpNoDelay  Set whether TCP no delay is enabled
  * @param tcpQuickAck  Enable the <code>TCP_QUICKACK</code> option - only with linux native transport.
- * @param timeoutOnConnect  Set the timeout on CONNECT packet
  * @param trafficClass  Set the value of traffic class
+ * @param trustAll  Set whether all server certificates should be trusted
  * @param trustOptions  Set the trust options.
  * @param trustStoreOptions  Set the trust options in jks format, aka Java truststore
  * @param useAlpn  Set the ALPN usage.
- * @param useProxyProtocol  Set whether the server uses the HA Proxy protocol
+ * @param user  Specify the user account to be used for the authentication.
  *
  * <p/>
- * NOTE: This function has been automatically generated from the [io.vertx.mqtt.MqttServerOptions original] using Vert.x codegen.
+ * NOTE: This function has been automatically generated from the [io.vertx.sqlclient.SqlConnectOptions original] using Vert.x codegen.
  */
-fun mqttServerOptionsOf(
-  acceptBacklog: Int? = null,
-  autoClientId: Boolean? = null,
-  clientAuth: ClientAuth? = null,
+fun sqlConnectOptionsOf(
+  cachePreparedStatements: Boolean? = null,
+  connectTimeout: Int? = null,
   crlPaths: Iterable<String>? = null,
   crlValues: Iterable<io.vertx.core.buffer.Buffer>? = null,
+  database: String? = null,
   enabledCipherSuites: Iterable<String>? = null,
   enabledSecureTransportProtocols: Iterable<String>? = null,
   host: String? = null,
+  hostnameVerificationAlgorithm: String? = null,
   idleTimeout: Int? = null,
   idleTimeoutUnit: TimeUnit? = null,
   jdkSslEngineOptions: io.vertx.core.net.JdkSSLEngineOptions? = null,
   keyCertOptions: io.vertx.core.net.KeyCertOptions? = null,
   keyStoreOptions: io.vertx.core.net.JksOptions? = null,
+  localAddress: String? = null,
   logActivity: Boolean? = null,
-  maxMessageSize: Int? = null,
+  metricsName: String? = null,
   openSslEngineOptions: io.vertx.core.net.OpenSSLEngineOptions? = null,
+  password: String? = null,
   pemKeyCertOptions: io.vertx.core.net.PemKeyCertOptions? = null,
   pemTrustOptions: io.vertx.core.net.PemTrustOptions? = null,
   pfxKeyCertOptions: io.vertx.core.net.PfxOptions? = null,
   pfxTrustOptions: io.vertx.core.net.PfxOptions? = null,
   port: Int? = null,
-  proxyProtocolTimeout: Long? = null,
-  proxyProtocolTimeoutUnit: TimeUnit? = null,
+  preparedStatementCacheMaxSize: Int? = null,
+  preparedStatementCacheSqlLimit: Int? = null,
+  properties: Map<String, String>? = null,
+  proxyOptions: io.vertx.core.net.ProxyOptions? = null,
   receiveBufferSize: Int? = null,
+  reconnectAttempts: Int? = null,
+  reconnectInterval: Long? = null,
   reuseAddress: Boolean? = null,
   reusePort: Boolean? = null,
   sendBufferSize: Int? = null,
-  sni: Boolean? = null,
   soLinger: Int? = null,
   ssl: Boolean? = null,
   sslEngineOptions: io.vertx.core.net.SSLEngineOptions? = null,
@@ -117,21 +129,18 @@ fun mqttServerOptionsOf(
   tcpKeepAlive: Boolean? = null,
   tcpNoDelay: Boolean? = null,
   tcpQuickAck: Boolean? = null,
-  timeoutOnConnect: Int? = null,
   trafficClass: Int? = null,
+  trustAll: Boolean? = null,
   trustOptions: io.vertx.core.net.TrustOptions? = null,
   trustStoreOptions: io.vertx.core.net.JksOptions? = null,
   useAlpn: Boolean? = null,
-  useProxyProtocol: Boolean? = null): MqttServerOptions = io.vertx.mqtt.MqttServerOptions().apply {
+  user: String? = null): SqlConnectOptions = io.vertx.sqlclient.SqlConnectOptions().apply {
 
-  if (acceptBacklog != null) {
-    this.setAcceptBacklog(acceptBacklog)
+  if (cachePreparedStatements != null) {
+    this.setCachePreparedStatements(cachePreparedStatements)
   }
-  if (autoClientId != null) {
-    this.setAutoClientId(autoClientId)
-  }
-  if (clientAuth != null) {
-    this.setClientAuth(clientAuth)
+  if (connectTimeout != null) {
+    this.setConnectTimeout(connectTimeout)
   }
   if (crlPaths != null) {
     for (item in crlPaths) {
@@ -143,6 +152,9 @@ fun mqttServerOptionsOf(
       this.addCrlValue(item)
     }
   }
+  if (database != null) {
+    this.setDatabase(database)
+  }
   if (enabledCipherSuites != null) {
     for (item in enabledCipherSuites) {
       this.addEnabledCipherSuite(item)
@@ -153,6 +165,9 @@ fun mqttServerOptionsOf(
   }
   if (host != null) {
     this.setHost(host)
+  }
+  if (hostnameVerificationAlgorithm != null) {
+    this.setHostnameVerificationAlgorithm(hostnameVerificationAlgorithm)
   }
   if (idleTimeout != null) {
     this.setIdleTimeout(idleTimeout)
@@ -169,14 +184,20 @@ fun mqttServerOptionsOf(
   if (keyStoreOptions != null) {
     this.setKeyStoreOptions(keyStoreOptions)
   }
+  if (localAddress != null) {
+    this.setLocalAddress(localAddress)
+  }
   if (logActivity != null) {
     this.setLogActivity(logActivity)
   }
-  if (maxMessageSize != null) {
-    this.setMaxMessageSize(maxMessageSize)
+  if (metricsName != null) {
+    this.setMetricsName(metricsName)
   }
   if (openSslEngineOptions != null) {
     this.setOpenSslEngineOptions(openSslEngineOptions)
+  }
+  if (password != null) {
+    this.setPassword(password)
   }
   if (pemKeyCertOptions != null) {
     this.setPemKeyCertOptions(pemKeyCertOptions)
@@ -193,14 +214,26 @@ fun mqttServerOptionsOf(
   if (port != null) {
     this.setPort(port)
   }
-  if (proxyProtocolTimeout != null) {
-    this.setProxyProtocolTimeout(proxyProtocolTimeout)
+  if (preparedStatementCacheMaxSize != null) {
+    this.setPreparedStatementCacheMaxSize(preparedStatementCacheMaxSize)
   }
-  if (proxyProtocolTimeoutUnit != null) {
-    this.setProxyProtocolTimeoutUnit(proxyProtocolTimeoutUnit)
+  if (preparedStatementCacheSqlLimit != null) {
+    this.setPreparedStatementCacheSqlLimit(preparedStatementCacheSqlLimit)
+  }
+  if (properties != null) {
+    this.setProperties(properties)
+  }
+  if (proxyOptions != null) {
+    this.setProxyOptions(proxyOptions)
   }
   if (receiveBufferSize != null) {
     this.setReceiveBufferSize(receiveBufferSize)
+  }
+  if (reconnectAttempts != null) {
+    this.setReconnectAttempts(reconnectAttempts)
+  }
+  if (reconnectInterval != null) {
+    this.setReconnectInterval(reconnectInterval)
   }
   if (reuseAddress != null) {
     this.setReuseAddress(reuseAddress)
@@ -210,9 +243,6 @@ fun mqttServerOptionsOf(
   }
   if (sendBufferSize != null) {
     this.setSendBufferSize(sendBufferSize)
-  }
-  if (sni != null) {
-    this.setSni(sni)
   }
   if (soLinger != null) {
     this.setSoLinger(soLinger)
@@ -244,11 +274,11 @@ fun mqttServerOptionsOf(
   if (tcpQuickAck != null) {
     this.setTcpQuickAck(tcpQuickAck)
   }
-  if (timeoutOnConnect != null) {
-    this.setTimeoutOnConnect(timeoutOnConnect)
-  }
   if (trafficClass != null) {
     this.setTrafficClass(trafficClass)
+  }
+  if (trustAll != null) {
+    this.setTrustAll(trustAll)
   }
   if (trustOptions != null) {
     this.setTrustOptions(trustOptions)
@@ -259,44 +289,50 @@ fun mqttServerOptionsOf(
   if (useAlpn != null) {
     this.setUseAlpn(useAlpn)
   }
-  if (useProxyProtocol != null) {
-    this.setUseProxyProtocol(useProxyProtocol)
+  if (user != null) {
+    this.setUser(user)
   }
 }
 
 /**
- * A function providing a DSL for building [io.vertx.mqtt.MqttServerOptions] objects.
+ * A function providing a DSL for building [io.vertx.sqlclient.SqlConnectOptions] objects.
  *
- * Represents options used by the MQTT server
+ * Connect options for configuring [io.vertx.sqlclient.SqlConnection] or [io.vertx.sqlclient.Pool].
  *
- * @param acceptBacklog  Set the accept back log
- * @param autoClientId  Set if clientid should be auto-generated when it's "zero-bytes"
- * @param clientAuth  Set whether client auth is required
+ * @param cachePreparedStatements  Set whether prepared statements cache should be enabled.
+ * @param connectTimeout  Set the connect timeout
  * @param crlPaths  Add a CRL path
  * @param crlValues  Add a CRL value
+ * @param database  Specify the default database for the connection.
  * @param enabledCipherSuites  Add an enabled cipher suite, appended to the ordered suites.
  * @param enabledSecureTransportProtocols  Sets the list of enabled SSL/TLS protocols.
- * @param host  Set the host
- * @param idleTimeout  Set the idle timeout, default time unit is seconds. Zero means don't timeout. This determines if a connection will timeout and be closed if no data is received within the timeout. If you want change default time unit, use [io.vertx.core.net.NetServerOptions]
+ * @param host  Specify the host for connecting to the server.
+ * @param hostnameVerificationAlgorithm  Set the hostname verification algorithm interval To disable hostname verification, set hostnameVerificationAlgorithm to an empty String
+ * @param idleTimeout  Set the idle timeout, default time unit is seconds. Zero means don't timeout. This determines if a connection will timeout and be closed if no data is received within the timeout. If you want change default time unit, use [io.vertx.core.net.NetClientOptions]
  * @param idleTimeoutUnit  Set the idle timeout unit. If not specified, default is seconds.
  * @param jdkSslEngineOptions 
  * @param keyCertOptions  Set the key/cert options.
  * @param keyStoreOptions  Set the key/cert options in jks format, aka Java keystore.
+ * @param localAddress  Set the local interface to bind for network connections. When the local address is null, it will pick any local address, the default local address is null.
  * @param logActivity  Set to true to enabled network activity logging: Netty's pipeline is configured for logging on Netty's logger.
- * @param maxMessageSize  Set max MQTT message size
+ * @param metricsName  Set the metrics name identifying the reported metrics, useful for grouping metrics with the same name.
  * @param openSslEngineOptions 
+ * @param password  Specify the user password to be used for the authentication.
  * @param pemKeyCertOptions  Set the key/cert store options in pem format.
  * @param pemTrustOptions  Set the trust options in pem format
  * @param pfxKeyCertOptions  Set the key/cert options in pfx format.
  * @param pfxTrustOptions  Set the trust options in pfx format
- * @param port  Set the port
- * @param proxyProtocolTimeout  Set the Proxy protocol timeout, default time unit is seconds.
- * @param proxyProtocolTimeoutUnit  Set the Proxy protocol timeout unit. If not specified, default is seconds.
+ * @param port  Specify the port for connecting to the server.
+ * @param preparedStatementCacheMaxSize  Set the maximum number of prepared statements that the connection will cache.
+ * @param preparedStatementCacheSqlLimit  Set the maximum length of prepared statement SQL string that the connection will cache.
+ * @param properties  Set properties for this client, which will be sent to server at the connection start.
+ * @param proxyOptions  Set proxy options for connections via CONNECT proxy (e.g. Squid) or a SOCKS proxy.
  * @param receiveBufferSize  Set the TCP receive buffer size
+ * @param reconnectAttempts  Set the value of reconnect attempts
+ * @param reconnectInterval  Set the reconnect interval
  * @param reuseAddress  Set the value of reuse address
  * @param reusePort  Set the value of reuse port. <p/> This is only supported by native transports.
  * @param sendBufferSize  Set the TCP send buffer size
- * @param sni  Set whether the server supports Server Name Indiciation
  * @param soLinger  Set whether SO_linger keep alive is enabled
  * @param ssl  Set whether SSL/TLS is enabled
  * @param sslEngineOptions  Set to use SSL engine implementation to use.
@@ -307,49 +343,55 @@ fun mqttServerOptionsOf(
  * @param tcpKeepAlive  Set whether TCP keep alive is enabled
  * @param tcpNoDelay  Set whether TCP no delay is enabled
  * @param tcpQuickAck  Enable the <code>TCP_QUICKACK</code> option - only with linux native transport.
- * @param timeoutOnConnect  Set the timeout on CONNECT packet
  * @param trafficClass  Set the value of traffic class
+ * @param trustAll  Set whether all server certificates should be trusted
  * @param trustOptions  Set the trust options.
  * @param trustStoreOptions  Set the trust options in jks format, aka Java truststore
  * @param useAlpn  Set the ALPN usage.
- * @param useProxyProtocol  Set whether the server uses the HA Proxy protocol
+ * @param user  Specify the user account to be used for the authentication.
  *
  * <p/>
- * NOTE: This function has been automatically generated from the [io.vertx.mqtt.MqttServerOptions original] using Vert.x codegen.
+ * NOTE: This function has been automatically generated from the [io.vertx.sqlclient.SqlConnectOptions original] using Vert.x codegen.
  */
 @Deprecated(
   message = "This function will be removed in a future version",
-  replaceWith = ReplaceWith("mqttServerOptionsOf(acceptBacklog, autoClientId, clientAuth, crlPaths, crlValues, enabledCipherSuites, enabledSecureTransportProtocols, host, idleTimeout, idleTimeoutUnit, jdkSslEngineOptions, keyCertOptions, keyStoreOptions, logActivity, maxMessageSize, openSslEngineOptions, pemKeyCertOptions, pemTrustOptions, pfxKeyCertOptions, pfxTrustOptions, port, proxyProtocolTimeout, proxyProtocolTimeoutUnit, receiveBufferSize, reuseAddress, reusePort, sendBufferSize, sni, soLinger, ssl, sslEngineOptions, sslHandshakeTimeout, sslHandshakeTimeoutUnit, tcpCork, tcpFastOpen, tcpKeepAlive, tcpNoDelay, tcpQuickAck, timeoutOnConnect, trafficClass, trustOptions, trustStoreOptions, useAlpn, useProxyProtocol)")
+  replaceWith = ReplaceWith("sqlConnectOptionsOf(cachePreparedStatements, connectTimeout, crlPaths, crlValues, database, enabledCipherSuites, enabledSecureTransportProtocols, host, hostnameVerificationAlgorithm, idleTimeout, idleTimeoutUnit, jdkSslEngineOptions, keyCertOptions, keyStoreOptions, localAddress, logActivity, metricsName, openSslEngineOptions, password, pemKeyCertOptions, pemTrustOptions, pfxKeyCertOptions, pfxTrustOptions, port, preparedStatementCacheMaxSize, preparedStatementCacheSqlLimit, properties, proxyOptions, receiveBufferSize, reconnectAttempts, reconnectInterval, reuseAddress, reusePort, sendBufferSize, soLinger, ssl, sslEngineOptions, sslHandshakeTimeout, sslHandshakeTimeoutUnit, tcpCork, tcpFastOpen, tcpKeepAlive, tcpNoDelay, tcpQuickAck, trafficClass, trustAll, trustOptions, trustStoreOptions, useAlpn, user)")
 )
-fun MqttServerOptions(
-  acceptBacklog: Int? = null,
-  autoClientId: Boolean? = null,
-  clientAuth: ClientAuth? = null,
+fun SqlConnectOptions(
+  cachePreparedStatements: Boolean? = null,
+  connectTimeout: Int? = null,
   crlPaths: Iterable<String>? = null,
   crlValues: Iterable<io.vertx.core.buffer.Buffer>? = null,
+  database: String? = null,
   enabledCipherSuites: Iterable<String>? = null,
   enabledSecureTransportProtocols: Iterable<String>? = null,
   host: String? = null,
+  hostnameVerificationAlgorithm: String? = null,
   idleTimeout: Int? = null,
   idleTimeoutUnit: TimeUnit? = null,
   jdkSslEngineOptions: io.vertx.core.net.JdkSSLEngineOptions? = null,
   keyCertOptions: io.vertx.core.net.KeyCertOptions? = null,
   keyStoreOptions: io.vertx.core.net.JksOptions? = null,
+  localAddress: String? = null,
   logActivity: Boolean? = null,
-  maxMessageSize: Int? = null,
+  metricsName: String? = null,
   openSslEngineOptions: io.vertx.core.net.OpenSSLEngineOptions? = null,
+  password: String? = null,
   pemKeyCertOptions: io.vertx.core.net.PemKeyCertOptions? = null,
   pemTrustOptions: io.vertx.core.net.PemTrustOptions? = null,
   pfxKeyCertOptions: io.vertx.core.net.PfxOptions? = null,
   pfxTrustOptions: io.vertx.core.net.PfxOptions? = null,
   port: Int? = null,
-  proxyProtocolTimeout: Long? = null,
-  proxyProtocolTimeoutUnit: TimeUnit? = null,
+  preparedStatementCacheMaxSize: Int? = null,
+  preparedStatementCacheSqlLimit: Int? = null,
+  properties: Map<String, String>? = null,
+  proxyOptions: io.vertx.core.net.ProxyOptions? = null,
   receiveBufferSize: Int? = null,
+  reconnectAttempts: Int? = null,
+  reconnectInterval: Long? = null,
   reuseAddress: Boolean? = null,
   reusePort: Boolean? = null,
   sendBufferSize: Int? = null,
-  sni: Boolean? = null,
   soLinger: Int? = null,
   ssl: Boolean? = null,
   sslEngineOptions: io.vertx.core.net.SSLEngineOptions? = null,
@@ -360,21 +402,18 @@ fun MqttServerOptions(
   tcpKeepAlive: Boolean? = null,
   tcpNoDelay: Boolean? = null,
   tcpQuickAck: Boolean? = null,
-  timeoutOnConnect: Int? = null,
   trafficClass: Int? = null,
+  trustAll: Boolean? = null,
   trustOptions: io.vertx.core.net.TrustOptions? = null,
   trustStoreOptions: io.vertx.core.net.JksOptions? = null,
   useAlpn: Boolean? = null,
-  useProxyProtocol: Boolean? = null): MqttServerOptions = io.vertx.mqtt.MqttServerOptions().apply {
+  user: String? = null): SqlConnectOptions = io.vertx.sqlclient.SqlConnectOptions().apply {
 
-  if (acceptBacklog != null) {
-    this.setAcceptBacklog(acceptBacklog)
+  if (cachePreparedStatements != null) {
+    this.setCachePreparedStatements(cachePreparedStatements)
   }
-  if (autoClientId != null) {
-    this.setAutoClientId(autoClientId)
-  }
-  if (clientAuth != null) {
-    this.setClientAuth(clientAuth)
+  if (connectTimeout != null) {
+    this.setConnectTimeout(connectTimeout)
   }
   if (crlPaths != null) {
     for (item in crlPaths) {
@@ -386,6 +425,9 @@ fun MqttServerOptions(
       this.addCrlValue(item)
     }
   }
+  if (database != null) {
+    this.setDatabase(database)
+  }
   if (enabledCipherSuites != null) {
     for (item in enabledCipherSuites) {
       this.addEnabledCipherSuite(item)
@@ -396,6 +438,9 @@ fun MqttServerOptions(
   }
   if (host != null) {
     this.setHost(host)
+  }
+  if (hostnameVerificationAlgorithm != null) {
+    this.setHostnameVerificationAlgorithm(hostnameVerificationAlgorithm)
   }
   if (idleTimeout != null) {
     this.setIdleTimeout(idleTimeout)
@@ -412,14 +457,20 @@ fun MqttServerOptions(
   if (keyStoreOptions != null) {
     this.setKeyStoreOptions(keyStoreOptions)
   }
+  if (localAddress != null) {
+    this.setLocalAddress(localAddress)
+  }
   if (logActivity != null) {
     this.setLogActivity(logActivity)
   }
-  if (maxMessageSize != null) {
-    this.setMaxMessageSize(maxMessageSize)
+  if (metricsName != null) {
+    this.setMetricsName(metricsName)
   }
   if (openSslEngineOptions != null) {
     this.setOpenSslEngineOptions(openSslEngineOptions)
+  }
+  if (password != null) {
+    this.setPassword(password)
   }
   if (pemKeyCertOptions != null) {
     this.setPemKeyCertOptions(pemKeyCertOptions)
@@ -436,14 +487,26 @@ fun MqttServerOptions(
   if (port != null) {
     this.setPort(port)
   }
-  if (proxyProtocolTimeout != null) {
-    this.setProxyProtocolTimeout(proxyProtocolTimeout)
+  if (preparedStatementCacheMaxSize != null) {
+    this.setPreparedStatementCacheMaxSize(preparedStatementCacheMaxSize)
   }
-  if (proxyProtocolTimeoutUnit != null) {
-    this.setProxyProtocolTimeoutUnit(proxyProtocolTimeoutUnit)
+  if (preparedStatementCacheSqlLimit != null) {
+    this.setPreparedStatementCacheSqlLimit(preparedStatementCacheSqlLimit)
+  }
+  if (properties != null) {
+    this.setProperties(properties)
+  }
+  if (proxyOptions != null) {
+    this.setProxyOptions(proxyOptions)
   }
   if (receiveBufferSize != null) {
     this.setReceiveBufferSize(receiveBufferSize)
+  }
+  if (reconnectAttempts != null) {
+    this.setReconnectAttempts(reconnectAttempts)
+  }
+  if (reconnectInterval != null) {
+    this.setReconnectInterval(reconnectInterval)
   }
   if (reuseAddress != null) {
     this.setReuseAddress(reuseAddress)
@@ -453,9 +516,6 @@ fun MqttServerOptions(
   }
   if (sendBufferSize != null) {
     this.setSendBufferSize(sendBufferSize)
-  }
-  if (sni != null) {
-    this.setSni(sni)
   }
   if (soLinger != null) {
     this.setSoLinger(soLinger)
@@ -487,11 +547,11 @@ fun MqttServerOptions(
   if (tcpQuickAck != null) {
     this.setTcpQuickAck(tcpQuickAck)
   }
-  if (timeoutOnConnect != null) {
-    this.setTimeoutOnConnect(timeoutOnConnect)
-  }
   if (trafficClass != null) {
     this.setTrafficClass(trafficClass)
+  }
+  if (trustAll != null) {
+    this.setTrustAll(trustAll)
   }
   if (trustOptions != null) {
     this.setTrustOptions(trustOptions)
@@ -502,8 +562,8 @@ fun MqttServerOptions(
   if (useAlpn != null) {
     this.setUseAlpn(useAlpn)
   }
-  if (useProxyProtocol != null) {
-    this.setUseProxyProtocol(useProxyProtocol)
+  if (user != null) {
+    this.setUser(user)
   }
 }
 
